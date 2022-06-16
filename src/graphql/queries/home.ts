@@ -9,6 +9,9 @@ export const GET_EVENTS = gql`
       title
       createdAt
       updatedAt
+      image {
+        url
+      }
     }
   }
 `

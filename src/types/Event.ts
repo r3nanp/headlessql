@@ -3,6 +3,9 @@ export type Event = {
   date: string
   slug: string
   createdAt: string
+  image: {
+    url: string
+  }
   updatedAt: string
   title: string
 }
