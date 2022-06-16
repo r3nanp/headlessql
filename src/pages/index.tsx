@@ -7,14 +7,10 @@ import { useCallback } from 'react'
 
 import { Layout } from '@/components'
 import { client } from '@/lib/graphql'
-import { Event } from '@/types/Event'
 import { GET_EVENTS } from '@/graphql/queries/home'
+import { GetHome } from '@/graphql/types/GetHome'
 
-type Home = {
-  events: Event[]
-}
-
-export default function Home({ events }: Home) {
+export default function Home({ events }: GetHome) {
   const [firstEvent, ...data] = events
 
   const { push } = useRouter()
@@ -63,7 +59,7 @@ export default function Home({ events }: Home) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { events } = await client.request<Home>(GET_EVENTS)
+  const { events } = await client.request<GetHome>(GET_EVENTS)
 
   return {
     props: {
