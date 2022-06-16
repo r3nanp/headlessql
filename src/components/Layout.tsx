@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import { FC, ReactNode } from 'react'
 
 type LayoutProps = {
   title: string
@@ -10,9 +10,7 @@ export const Layout: FC<LayoutProps> = ({ title, children }) => {
     <main>
       <div className="relative h-full min-h-screen">
         <div className="flex h-72 w-full items-center justify-center rounded-b-[6.25rem] bg-black px-32 pt-4 text-center">
-          <h1 className="w-8/12 text-4xl text-white">
-            {title}
-          </h1>
+          <h1 className="w-8/12 text-4xl text-white">{title}</h1>
         </div>
 
         {children}
