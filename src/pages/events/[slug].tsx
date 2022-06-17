@@ -1,19 +1,54 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import format from 'date-fns/format'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
 
-import { Layout } from '@/components'
+import { Layout, Memories } from '@/components'
 import { client } from '@/lib/graphql'
 import { GET_EVENT_BY_SLUG } from '@/graphql/queries/event'
 import {
   EventBySlugRequest,
   EventBySlugVariables
 } from '@/graphql/types/GetEventBySlug'
+import { Event } from '@/types/Event'
 
-export default function Memories({ event }: EventBySlugRequest) {
-  if (!event) return <div>haha</div>
+type Memory = Event & {
+  description: { compiledSource: string }
+}
 
+export default function EventPage({ event }: { event: Memory }) {
   return (
     <Layout title={event.title}>
-      <div className="flex items-center">{event.title}</div>
+      <Head>
+        <title>{`${event.title} | Great Memories`}</title>
+        <meta name="description" content={event.title} />
+      </Head>
+
+      <div className="m-auto min-h-[21.5rem] w-4/5 p-14">
+        <div className="m-auto w-full max-w-4xl">
+          <Image
+            objectFit="cover"
+            src={event.image.url}
+            alt={event.title}
+            width={750}
+            height={400}
+            className="w-full rounded-[1.875rem] object-cover"
+          />
+        </div>
+
+        <div className="mt-5 whitespace-pre-wrap">
+          <h1 className="text-4xl font-bold">{event.title}</h1>
+          <h2 className="text-2xl font-bold">{event.date}</h2>
+        </div>
+
+        <div className="my-4">
+          <MDXRemote {...event.description} />
+        </div>
+
+        <Memories eventId={event.id} />
+      </div>
     </Layout>
   )
 }
@@ -26,10 +61,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     EventBySlugVariables
   >(GET_EVENT_BY_SLUG, { slug })
 
+  if (!event) {
+    return {
+      notFound: true
+    }
+  }
+
+  const description = await serialize(event.description)
+
+  const date = format(new Date(event.date), 'dd MM yyyy')
+
+  const props = {
+    event: {
+      ...event,
+      description,
+      date
+    }
+  }
+
   return {
-    props: {
-      event
-    },
+    props,
     revalidate: 60 * 60 * 60
   }
 }
