@@ -1,7 +1,11 @@
 import { Event } from '@/types/Event'
 
+type IEvent = Event & {
+  description: string
+}
+
 export type EventBySlugRequest = {
-  event: Event | null
+  event: IEvent | null
 }
 
 export type EventBySlugVariables = {
