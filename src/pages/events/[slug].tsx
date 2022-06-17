@@ -27,7 +27,7 @@ export default function EventPage({ event }: { event: Memory }) {
       </Head>
 
       <div className="m-auto min-h-[21.5rem] w-4/5 p-14">
-        <div className="m-auto w-full max-w-4xl">
+        <div className="m-auto flex  w-full max-w-4xl items-center justify-center">
           <Image
             objectFit="cover"
             src={event.image.url}

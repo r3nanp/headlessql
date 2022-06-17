@@ -3,6 +3,8 @@ A simple app for recording stories. Written in Next.js using GraphQL and GraphCM
 
 ![r3nanp](https://img.shields.io/badge/r3nanp-headlessql-blue?style=for-the-badge&logo=react)
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![prs](https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000)
 
 ---
@@ -11,6 +13,8 @@ A simple app for recording stories. Written in Next.js using GraphQL and GraphCM
 
 - Next.js
 - Typescript
+- GraphQL
+- GraphCMS
 - TailwindCSS
 
 # 🤔 How to run
@@ -44,10 +48,11 @@ or
 ```bash
 npm run dev
 ```
-<!-- # License 📚
+
+# License 📚
 
 [MIT license](LICENSE).
 
 Made by [Renan Pereira](https://github.com/r3nanp)
 
-Give a ⭐️! -->
+Give a ⭐️!

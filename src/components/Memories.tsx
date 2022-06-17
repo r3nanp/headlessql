@@ -20,7 +20,7 @@ export const Memories = ({ eventId }: { eventId: string }) => {
           className="quote border-l-4 border-neutral-500 bg-neutral-100 p-4 italic text-neutral-600"
           key={memory.id}
         >
-          {memory.story} - {memory.name}
+          {memory.story} - <span className="font-bold">{memory.name}</span>
         </blockquote>
       ))}
     </section>

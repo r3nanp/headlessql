@@ -1,8 +1,31 @@
-export const Spinner = () => {
+import clsx from 'clsx'
+
+const sizes = {
+  sm: 'h-4 w-4',
+  md: 'h-8 w-8',
+  lg: 'h-16 w-16',
+  xl: 'h-24 w-24'
+}
+
+const colors = {
+  primary: 'text-blue-400'
+}
+
+export type SpinnerProps = {
+  size?: keyof typeof sizes
+  color?: keyof typeof colors
+  className?: string
+}
+
+export const Spinner = ({
+  size = 'md',
+  color = 'primary',
+  className = ''
+}: SpinnerProps) => {
   return (
     <>
       <svg
-        className="h-8 w-8 animate-spin text-blue-400"
+        className={clsx('animate-spin', sizes[size], colors[color], className)}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
