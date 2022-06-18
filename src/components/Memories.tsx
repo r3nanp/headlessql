@@ -17,7 +17,7 @@ export const Memories = ({ eventId }: { eventId: string }) => {
 
       {data?.map(memory => (
         <blockquote
-          className="quote border-l-4 border-neutral-500 bg-neutral-100 p-4 italic text-neutral-600"
+          className="quote my-4 border-l-4 border-neutral-500 bg-neutral-100 p-4 italic text-neutral-600"
           key={memory.id}
         >
           {memory.story} - <span className="font-bold">{memory.name}</span>
