@@ -20,7 +20,7 @@ export default function Home({ events }: GetHome) {
   }, [firstEvent.slug, push])
 
   return (
-    <Layout title="Great memories or not...">
+    <Layout title="Great memories">
       <Head>
         <title>Find the greatest memories here</title>
       </Head>
