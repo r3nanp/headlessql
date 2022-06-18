@@ -5,7 +5,7 @@ import format from 'date-fns/format'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 
-import { Layout, Memories } from '@/components'
+import { Layout, Memories, NewMemory } from '@/components'
 import { client } from '@/lib/graphql'
 import { GET_EVENT_BY_SLUG } from '@/graphql/queries/event'
 import {
@@ -43,11 +43,13 @@ export default function EventPage({ event }: { event: Memory }) {
           <h2 className="text-2xl font-bold">{event.date}</h2>
         </div>
 
-        <div className="my-4">
+        <div className="my-4 text-justify">
           <MDXRemote {...event.description} />
         </div>
 
         <Memories eventId={event.id} />
+
+        <NewMemory eventId={event.id} />
       </div>
     </Layout>
   )
@@ -81,7 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props,
-    revalidate: 60 * 60 * 60
+    revalidate: 60 * 60 * 60 // 2.5 days
   }
 }
 
