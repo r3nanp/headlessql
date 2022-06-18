@@ -1,4 +1,6 @@
+import { createMemory } from '@/apis/createMemory'
 import { ChangeEvent, useState } from 'react'
+import toast from 'react-hot-toast'
 
 export const NewMemory = ({ eventId }: { eventId: string }) => {
   const [name, setName] = useState('')
@@ -7,16 +9,14 @@ export const NewMemory = ({ eventId }: { eventId: string }) => {
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    await fetch('/api/memories/add', {
-      method: 'POST',
-      body: JSON.stringify({ name, story, eventId }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
     setName('')
     setStory('')
+
+    toast.promise(createMemory({ name, eventId, story }), {
+      loading: 'Loading...',
+      success: <p>Your memory is going to be reviewed soon.</p>,
+      error: <p>Something went wrong!</p>
+    })
   }
 
   return (
@@ -36,6 +36,7 @@ export const NewMemory = ({ eventId }: { eventId: string }) => {
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         />
       </div>
+
       <div className="my-4">
         <label
           htmlFor="message"
