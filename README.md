@@ -1,5 +1,5 @@
 # HeadlessQL
-A simple app for recording stories. Written in Next.js using GraphQL and GraphCMS.
+📁 A simple app to show events and recording memories. Written in Next.js using GraphQL and GraphCMS.
 
 ![r3nanp](https://img.shields.io/badge/r3nanp-headlessql-blue?style=for-the-badge&logo=react)
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
