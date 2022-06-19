@@ -1,11 +1,10 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 
-import { Layout } from '@/components'
+import { Layout, EventCard } from '@/components'
 import { client } from '@/lib/graphql'
 import { GET_EVENTS } from '@/graphql/queries/home'
 import { GetHome } from '@/graphql/types/GetHome'
@@ -24,6 +23,7 @@ export default function Home({ events }: GetHome) {
       <Head>
         <title>Find the greatest memories here</title>
       </Head>
+
       <section
         className="m-auto mt-[-42px] flex min-h-[21.5rem] w-4/5 cursor-pointer flex-wrap-reverse justify-around rounded-[1.875rem] bg-white p-6 md:p-14"
         onClick={handleGoToTheHighlight}
@@ -45,15 +45,12 @@ export default function Home({ events }: GetHome) {
           />
         </div>
       </section>
-      <ul className="px-4">
+
+      <div className="m-auto flex max-w-[80%] flex-wrap justify-center gap-16">
         {data.map(event => (
-          <li key={event.slug}>
-            <Link href={`/events/${event.slug}`}>
-              <a>{event.title}</a>
-            </Link>
-          </li>
+          <EventCard key={`event-${event.id}`} event={event} />
         ))}
-      </ul>
+      </div>
     </Layout>
   )
 }
