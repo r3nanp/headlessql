@@ -35,6 +35,8 @@ export const NewMemory = ({ eventId }: { eventId: string }) => {
       className="my-8 flex max-w-2xl flex-col"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <h3 className="text-4xl font-bold">Add your memories</h3>
+
       <div className="my-4">
         <Input
           {...register('name')}
