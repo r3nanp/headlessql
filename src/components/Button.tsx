@@ -38,7 +38,7 @@ export const Button = ({
     <button
       type={type}
       className={clsx(
-        'flex w-full items-center rounded-lg bg-blue-700 text-center font-medium sm:w-auto',
+        'flex items-center rounded-lg bg-blue-700 text-center font-medium sm:w-auto',
         sizes[size],
         variants[variant],
         className
