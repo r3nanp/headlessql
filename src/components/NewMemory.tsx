@@ -1,18 +1,29 @@
-import { createMemory } from '@/apis/createMemory'
-import { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { FolderOpenIcon } from '@heroicons/react/outline'
+
+import { Button } from './Button'
+import { Input } from './Input'
+import { TextArea } from './Textarea'
+import { resolver } from '@/utils/validations'
+import { createMemory } from '@/apis/createMemory'
+
+type CreateMemory = {
+  name: string
+  story: string
+}
 
 export const NewMemory = ({ eventId }: { eventId: string }) => {
-  const [name, setName] = useState('')
-  const [story, setStory] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<CreateMemory>({
+    resolver
+  })
 
-  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    setName('')
-    setStory('')
-
-    toast.promise(createMemory({ name, eventId, story }), {
+  const onSubmit: SubmitHandler<CreateMemory> = async ({ name, story }) => {
+    toast.promise(createMemory({ name, story, eventId }), {
       loading: 'Loading...',
       success: <p>Your memory is going to be reviewed soon.</p>,
       error: <p>Something went wrong!</p>
@@ -20,46 +31,38 @@ export const NewMemory = ({ eventId }: { eventId: string }) => {
   }
 
   return (
-    <form className="my-8 flex max-w-2xl flex-col" onSubmit={handleSubmit}>
+    <form
+      className="my-8 flex max-w-2xl flex-col"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="my-4">
-        <label
-          htmlFor="name"
-          className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          Your name
-        </label>
-        <input
-          type="text"
-          required
-          value={name}
-          onChange={event => setName(event.target.value)}
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        <Input
+          {...register('name')}
+          label="Your name"
+          name="name"
+          error={errors?.name?.message}
+          variant={errors.name ? 'error' : 'primary'}
         />
       </div>
 
       <div className="my-4">
-        <label
-          htmlFor="message"
-          className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400"
-        >
-          Your story
-        </label>
-
-        <textarea
-          id="story"
-          value={story}
-          onChange={event => setStory(event.target.value)}
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        <TextArea
+          {...register('story')}
+          name="story"
+          label="Your story"
+          error={errors?.story?.message}
+          variant={errors.story ? 'error' : 'primary'}
         />
       </div>
 
       <div className="max-w-20">
-        <button
+        <Button
           type="submit"
-          className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+          isLoading={isSubmitting}
+          startIcon={<FolderOpenIcon className="h-8 w-8" />}
         >
           Add story
-        </button>
+        </Button>
       </div>
     </form>
   )
