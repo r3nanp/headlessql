@@ -1,7 +1,10 @@
-import { Event } from '@/types/Event'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { useCallback } from 'react'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+import { itemVariants } from '@/constants/variants'
+import { Event } from '@/types/Event'
 
 type EventCardProps = {
   event: Event
@@ -15,7 +18,11 @@ export const EventCard = ({ event }: EventCardProps) => {
   }, [event.slug, push])
 
   return (
-    <div className="w-[27.75rem]" onClick={handleOnClickEventCard}>
+    <motion.div
+      variants={itemVariants}
+      className="w-[27.75rem]"
+      onClick={handleOnClickEventCard}
+    >
       <Image
         className="mb-[1.25rem] h-60 w-full cursor-pointer rounded-[1rem] object-cover hover:opacity-90"
         alt="Post thumbnail"
@@ -25,6 +32,6 @@ export const EventCard = ({ event }: EventCardProps) => {
         src={event.image.url}
       />
       <h3 className="mb-[0.625rem] text-2xl font-bold">{event.title}</h3>
-    </div>
+    </motion.div>
   )
 }

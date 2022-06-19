@@ -13,6 +13,8 @@ import {
   EventBySlugVariables
 } from '@/graphql/types/GetEventBySlug'
 import { Event } from '@/types/Event'
+import { motion } from 'framer-motion'
+import { opacity } from '@/constants/variants'
 
 type Memory = Event & {
   description: { compiledSource: string }
@@ -26,7 +28,15 @@ export default function EventPage({ event }: { event: Memory }) {
         <meta name="description" content={event.title} />
       </Head>
 
-      <div className="m-auto min-h-[21.5rem] w-4/5 p-14">
+      <motion.div
+        initial="initial"
+        variants={opacity}
+        animate="exit"
+        transition={{
+          duration: 1
+        }}
+        className="m-auto min-h-[21.5rem] w-4/5 p-14"
+      >
         <div className="m-auto flex  w-full max-w-4xl items-center justify-center">
           <Image
             objectFit="cover"
@@ -50,7 +60,7 @@ export default function EventPage({ event }: { event: Memory }) {
         <Memories eventId={event.id} />
 
         <NewMemory eventId={event.id} />
-      </div>
+      </motion.div>
     </Layout>
   )
 }

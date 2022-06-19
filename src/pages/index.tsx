@@ -8,6 +8,8 @@ import { Layout, EventCard } from '@/components'
 import { client } from '@/lib/graphql'
 import { GET_EVENTS } from '@/graphql/queries/home'
 import { GetHome } from '@/graphql/types/GetHome'
+import { motion } from 'framer-motion'
+import { listVariants } from '@/constants/variants'
 
 export default function Home({ events }: GetHome) {
   const [firstEvent, ...data] = events
@@ -46,11 +48,16 @@ export default function Home({ events }: GetHome) {
         </div>
       </section>
 
-      <div className="m-auto flex max-w-[80%] flex-wrap justify-center gap-16">
+      <motion.div
+        variants={listVariants}
+        initial="hidden"
+        animate="visible"
+        className="m-auto flex max-w-[80%] flex-wrap justify-center gap-16"
+      >
         {data.map(event => (
           <EventCard key={`event-${event.id}`} event={event} />
         ))}
-      </div>
+      </motion.div>
     </Layout>
   )
 }
