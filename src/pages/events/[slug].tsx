@@ -35,9 +35,9 @@ export default function EventPage({ event }: { event: Memory }) {
         transition={{
           duration: 1
         }}
-        className="m-auto min-h-[21.5rem] w-4/5 p-14"
+        className="m-auto min-h-[21.5rem] p-14 md:w-4/5 lg:w-4/5"
       >
-        <div className="m-auto flex  w-full max-w-4xl items-center justify-center">
+        <div className="m-auto flex w-full max-w-4xl items-center justify-center">
           <Image
             objectFit="cover"
             src={event.image.url}
@@ -53,7 +53,7 @@ export default function EventPage({ event }: { event: Memory }) {
           <h2 className="text-2xl font-bold">{event.date}</h2>
         </div>
 
-        <div className="my-4 text-justify">
+        <div className="md:prose-md prose my-4 lg:prose-lg lg:!max-w-none">
           <MDXRemote {...event.description} />
         </div>
 
@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const description = await serialize(event.description)
 
-  const date = format(new Date(event.date), 'dd MM yyyy')
+  const date = format(new Date(event.date), 'dd/MM/yyyy')
 
   const props = {
     event: {
